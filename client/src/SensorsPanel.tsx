@@ -1,14 +1,7 @@
 import './SensorsPanel.css'
 import useWebSocket from "react-use-websocket";
 import {useEffect, useState} from "react";
-
-interface SensorData {
-    id: string;
-    name: string;
-    connected: boolean;
-    unit: string;
-    value: string
-}
+import Sensor, {SensorData} from "./Sensor.tsx";
 
 function SensorsPanel() {
     const {lastJsonMessage} = useWebSocket("ws://localhost:5000");
@@ -22,11 +15,11 @@ function SensorsPanel() {
         }
     }, [lastJsonMessage, setSensors]);
     return (
-            <main>
+            <div className={`sensors-panel`}>
                 {
-                    sensors.map((s) => <div>{s.name}</div>)
+                    sensors.map((s) => <Sensor key={s.id} data={s}/>)
                 }
-            </main>
+            </div>
     )
 }
 
