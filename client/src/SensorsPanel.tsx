@@ -6,12 +6,21 @@ import Sensor, {SensorData} from "./Sensor.tsx";
 function SensorsPanel() {
     const {lastJsonMessage} = useWebSocket("ws://localhost:5000");
     const [sensors, setSensors] = useState<SensorData[]>([]);
+
     useEffect(() => {
         if (lastJsonMessage) {
                 const sensor: SensorData = lastJsonMessage as SensorData;
-                setSensors(prevSensors => {
-                        return [...prevSensors, sensor];
-                });
+            setSensors(prevSensors => {
+                const sensorIndex = prevSensors.findIndex(existingSensor => existingSensor.id === sensor.id);
+
+                if (sensorIndex !== -1) {
+                    const newSensors = [...prevSensors];
+                    newSensors[sensorIndex] = sensor;
+                    return newSensors;
+                } else {
+                    return [...prevSensors, sensor];
+                }
+            });
         }
     }, [lastJsonMessage, setSensors]);
     return (
