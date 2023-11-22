@@ -2,9 +2,17 @@ import './SensorsPanel.css'
 import useWebSocket from "react-use-websocket";
 import {useEffect, useState} from "react";
 import Sensor, {SensorData} from "./Sensor.tsx";
+enum ConnectionState {
+    CONNECT = 'connect',
+    DISCONNECT = 'disconnect'
+}
 
+interface Command {
+    command: ConnectionState;
+    id: string;
+}
 function SensorsPanel() {
-    const {lastJsonMessage} = useWebSocket("ws://localhost:5000");
+    const {lastJsonMessage,sendJsonMessage} = useWebSocket("ws://localhost:5000");
     const [sensors, setSensors] = useState<SensorData[]>([]);
 
     useEffect(() => {
@@ -23,10 +31,17 @@ function SensorsPanel() {
             });
         }
     }, [lastJsonMessage, setSensors]);
+    const toggleConnectionState = (data: SensorData) => {
+        const command: Command = {
+            command: data.connected ? ConnectionState.DISCONNECT : ConnectionState.CONNECT,
+            id: data.id
+        }
+        sendJsonMessage(command);
+    }
     return (
             <div className={`sensors-panel`}>
                 {
-                    sensors.map((s) => <Sensor key={s.id} data={s}/>)
+                    sensors.map((s) => <Sensor key={s.id} data={s} changeState={toggleConnectionState}/>)
                 }
             </div>
     )

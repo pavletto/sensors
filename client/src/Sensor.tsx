@@ -1,3 +1,5 @@
+import "./Sensor.css";
+
 export interface SensorData {
     id: string;
     name: string;
@@ -6,9 +8,18 @@ export interface SensorData {
     value: string
 }
 
-function Sensor({data}: { data: SensorData }) {
+function Sensor({data, changeState}: { data: SensorData, changeState: (data: SensorData) => void }) {
     return (
-        <div className={`sensor`}>{data.name}</div>
+        <div className={`sensor`}>
+            <div
+                className={`sensor__status ${data.connected ? 'sensor__status_connected' : 'sensor__status_disconnected'}`}></div>
+            <div className={`sensor__name`}>{data.name}</div>
+            <div className={`sensor__value`}>{data.value || "___"} <span className={`sensor__unit`}>{data.unit}</span>
+            </div>
+            <button onClick={() => {
+                changeState(data)
+            }}>{data.connected ? 'OFF' : 'ON'}</button>
+        </div>
     )
 }
 
