@@ -21,6 +21,7 @@ function SensorsControls({sensors, sendJsonMessage}: { sensors: SensorData[], se
         sendJsonMessage(command);
     }
     return <>
+        <h2>Controls</h2>
         <div className={`sensors-controls`}>
             {
                 sensors.map((s) =>

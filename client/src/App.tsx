@@ -3,6 +3,7 @@ import type {SensorData} from "./Sensor.tsx";
 import useWebSocket, {ReadyState} from "react-use-websocket";
 import SensorsPanel from "./SensorsPanel.tsx";
 import SensorsControls from "./SensorsControls.tsx";
+import './App.css';
 
 function App() {
     const {lastJsonMessage, sendJsonMessage, readyState} = useWebSocket("ws://localhost:5000");
@@ -26,16 +27,16 @@ function App() {
     }, [lastJsonMessage, setSensors]);
     switch (readyState) {
         case ReadyState.CONNECTING:
-            return <div>Connecting...</div>
+            return <div className={'loader'}>Connecting...</div>
         case ReadyState.OPEN:
             return <>
-                <SensorsPanel sensors={sensors}/>
                 <SensorsControls sensors={sensors} sendJsonMessage={sendJsonMessage}/>
+                <SensorsPanel sensors={sensors}/>
             </>
         case ReadyState.CLOSING:
-            return <div>Disconnecting...</div>
+            return <div className={'loader'}>Disconnecting...</div>
         case ReadyState.CLOSED:
-            return <div>Disconnected</div>
+            return <div className={'loader'}>Disconnected</div>
     }
 }
 
