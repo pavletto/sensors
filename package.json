@@ -1,0 +1,17 @@
+{
+  "name": "sensors",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm start",
+    "client": "cd client && npm run dev",
+    "postinstall": "cd client && npm install && cd ../server && npm install"
+  },
+  "keywords": ["your", "keywords", "here"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^7.0.2"
+  }
+}

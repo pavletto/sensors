@@ -1,24 +1,26 @@
 .sensor {
     background-color: rgba(125, 125, 125, 0.5);
-    border-radius: 8px;
     padding: 8px;
-    width: 124px;
 }
 
 .sensor__name {
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 400;
     margin-bottom: 0.5rem;
+    text-align: start;
 
 }
 .sensor__unit {
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 400;
     margin-bottom: 0.5rem;
 }
 .sensor__value {
+    display: flex;
+    flex-direction: column;
+    font-family: Roboto Mono, sans-serif;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 0.5rem;
     text-align: end;
 }

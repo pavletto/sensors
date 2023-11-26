@@ -1,0 +1,7 @@
+.sensors-controls {
+    display: flex;
+    gap: 8px;
+}
+.sensor-control_connected {
+    background-color: var(--theme-color);
+}
