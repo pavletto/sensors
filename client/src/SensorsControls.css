@@ -1,8 +1,11 @@
 .sensors-controls {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
     margin: 1rem;
 }
+
 .sensor-control_connected {
     background-color: var(--theme-color);
     color: var(--light1);
